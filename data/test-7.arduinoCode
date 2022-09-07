@@ -1,0 +1,19 @@
+// Teste do ... while
+
+// Brancher PIN_13 à une LED reliée à GND avec une résistance de 330ohms
+// Brancher l'Arduino au connecteur USB de l'ordinateur en lancer une communication Série
+
+c : unsigned byte;
+
+begin
+pinMode(PIN_13, OUTPUT);
+digitalWrite(PIN_13, HIGH);
+c = 0;
+// Boucle tant que l'on ne tape pas 'Q'
+do {
+	c = getc();
+	putc(c);
+}
+while (c != 81);
+digitalWrite(PIN_13, LOW);
+end

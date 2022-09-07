@@ -1,0 +1,27 @@
+// Brancher PIN_13 à une LED reliée à GND avec une résistance de 330ohms
+// Brancher PIN_8 à une LED reliée à GND avec une résistance de 330ohms
+
+// Modification variable
+
+// Allume et éteind en alternance la 
+// broche 13 (LED de l'Arduino) et la broche 8
+// en augmentant la cadence
+
+t16: short; // 16 bits
+
+begin
+t16 = 0;
+pinMode(PIN_13, OUTPUT);
+pinMode(PIN_8, OUTPUT);
+
+loop {
+	t16++;
+	digitalWrite(PIN_13, HIGH);
+	digitalWrite(PIN_8, LOW);
+	delay_ms(t16);
+	digitalWrite(PIN_13, LOW);
+	digitalWrite(PIN_8, HIGH);
+	delay_ms(t16);
+}
+end
+

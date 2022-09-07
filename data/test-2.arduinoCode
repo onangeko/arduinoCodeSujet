@@ -1,0 +1,26 @@
+// Brancher PIN_13 à une LED reliée à GND avec une résistance de 330ohms
+// Brancher PIN_8 à une LED reliée à GND avec une résistance de 330ohms
+// Brancher l'Arduino au connecteur USB de l'ordinateur en lancer une communication Série
+
+// Allume et éteind en alternance la 
+// broche 13 (LED de l'Arduino) et la broche 8
+// toutes les 2s environ
+// Envoie en même temps un message sur le port Série
+
+begin
+
+pinMode(PIN_8, OUTPUT);
+pinMode(PIN_13, OUTPUT);
+	
+loop {
+	puts("Thank your for these precisions\n");
+	digitalWrite(PIN_8, LOW);
+	digitalWrite(PIN_13, HIGH);
+	delay_s(1);
+	digitalWrite(PIN_8, HIGH);
+	digitalWrite(PIN_13, LOW);
+	delay_s(1);
+}
+
+end
+

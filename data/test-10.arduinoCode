@@ -1,0 +1,115 @@
+// Input
+
+
+// Brancher PIN_13 à une LED reliée à GND avec une résistance de 330ohms
+// Brancher PIN_8 à une LED reliée à GND avec une résistance de 330ohms
+// Brancher PIN_2 à un bouton poussoir relié à GND 
+
+// LED PIN_13 allumé 1 fois sur 2 si while et if marche
+// LED PIN_8 allumée si bouton appuyé
+
+c: unsigned byte;
+a,  d, e, f :  integer;
+b1, b2: boolean;
+i81, i82: byte;
+i161, i162: short;
+i321, i322: integer;
+ui81, ui82: unsigned byte;
+ui161, ui162: unsigned short;
+ui321, ui322: unsigned integer;
+f321, f322: float;
+
+p1, p2: pin;
+
+s1, s2, s3: string[32];
+
+r1, r2: range of integer;
+
+s1, s2: set of unsigned byte ;
+
+l1, l2: list of integer ;
+
+e1, e2 : enum (A, B, C);
+
+tree: struct {
+      left: integer;
+      right: integer;
+      tag: string[32];
+};
+
+begin
+e = 2;
+f = 0;
+
+
+pinMode(PIN_8, OUTPUT);
+pinMode(PIN_13, OUTPUT);
+pinMode(PIN_2, INPUTPULLUP);
+digitalWrite(PIN_13, HIGH);
+digitalWrite(PIN_8, HIGH);
+loop{
+    while (d != 10)
+    {
+     d ++;
+     delay_ms(200);
+    if(d % e == f)
+        digitalWrite(PIN_8, HIGH);
+	else
+		digitalWrite(PIN_8, LOW);
+	delay_ms(200);
+    }
+    d = 0;
+    while (d != 10)
+    {
+	c = digitalRead(PIN_13);
+	if (c == 0)
+		digitalWrite(PIN_13, HIGH);
+	else
+		digitalWrite(PIN_13, LOW);
+	delay_ms(200);
+    d ++;
+    }
+    
+    break;
+}
+	b1 = TRUE;
+	b2 = TRUE && b1;
+	p1 = PIN_13;
+	p2 = p1;
+	r1 = [3 .. 67];
+	r2 = [1..2] + r1;
+	s1 = {3, 3, 5};
+	s2 = {4, 5, 6} + s1;
+	s3 = {4, 5, 6} * s1;
+	l1 = [3, 4, 4, 5];
+	l1 = [1, 2, 2] + l1;
+	i81 = -127;
+	i82 = 1 + i81;
+	ui81 = 255;
+	ui82 = 1 + 255;
+	i161 = -32768;
+	i162 = 1 + -32768;
+	ui161 = 65535;
+	ui162 = 1 + 65535;
+	i321 = -2147483648;
+	i322 = 1 + -2147483648;
+	ui321 = 4294967295;
+	ui322 = 1 + 4294967295;
+	f321 = 3.14;
+c = 0;
+loop{
+    
+    a = s1[c];
+    if(a == 3)
+        a = s1[c];
+    else
+        c = 0; 
+    c ++;
+    delay_ms(200);
+    if(a == 3)
+        digitalWrite(PIN_2, HIGH);
+    else
+        digitalWrite(PIN_2, LOW);
+    delay_ms(200);
+}
+end

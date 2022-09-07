@@ -1,0 +1,6 @@
+// Brancher PIN_13 à une LED reliée à GND avec une résistance de 330ohms
+
+begin
+pinMode(PIN_13, OUTPUT);
+digitalWrite(PIN_13, HIGH);
+end

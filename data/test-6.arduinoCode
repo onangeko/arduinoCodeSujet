@@ -1,0 +1,35 @@
+// Teste if
+
+// Brancher PIN_13 à une LED reliée à GND avec une résistance de 330ohms
+// Brancher PIN_8 à une LED reliée à GND avec une résistance de 330ohms
+// Brancher l'Arduino au connecteur USB de l'ordinateur en lancer une communication Série
+
+c : unsigned byte;
+
+begin
+pinMode(PIN_8, OUTPUT);
+pinMode(PIN_13, OUTPUT);
+loop{
+	c = getc();
+	putc(c);
+	if (c == 65) {
+		digitalWrite(PIN_8, HIGH);
+		delay_ms(1000);
+	}
+	else {
+		digitalWrite(PIN_13, HIGH);
+		delay_ms(1000);
+	}
+	if (c == 67) {
+		digitalWrite(PIN_8, LOW);
+		delay_ms(1000);
+	}
+	if (c == 68) {
+		digitalWrite(PIN_13, LOW);
+		delay_ms(1000);
+	}
+}
+end
+
+
+

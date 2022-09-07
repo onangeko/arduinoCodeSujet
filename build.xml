@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ====================================================================== 
+	project usage: 
+	ant parser 
+	ant lexer 
+	ant classes 
+	ant data 
+	ant clean 
+====================================================================== -->
+
+<project name="arduinoCode" default="classes">
+
+	<property name="source" value="." />
+	
+	<property name="packagePath" value="fr/ubordeaux/arduinoCode/" />
+	<property name="packageName" value="fr.ubordeaux.arduinoCode." />
+	
+	<property name="src" location="src" />
+	<property name="classes" location="classes" />
+	<property name="lib" location="lib" />
+	<property name="lexer" location="${source}/lexer" />
+	<property name="parser" location="${source}/parser" />
+
+	<property name="bison" location="/usr/local/bin/bison" />
+	<property name="jflex" location="jflex" />
+	<property name="jflex.jar" location="${lib}/jflex-full-1.8.2.jar" />
+
+	<property name="parser.srcfile" value="${parser}/Parser.y" />
+	<property name="lexer.srcfile" value="${lexer}/Lexer.jflex" />
+	<property name="parser.targetfile" value="${src}/${packagePath}Parser.java" />
+	<property name="lexer.targetfile" value="${src}/Lexer.java" />
+	<description>
+		Compilation du projet
+	</description>
+
+	<!-- ================================= = target: clean ================================= -->
+	<target name="clean" description="Clean all compiled files">
+		<delete dir="${classes}" />
+		<delete>
+			<fileset dir="${src}">
+				<include name="**/Parser.java" />
+				<include name="**/Lexer.java" />
+				<include name="**/Parser.output" />
+			</fileset>
+		</delete>
+	</target>
+
+	<!-- ================================= = target: dir.classes.check ================================= -->
+	<target name="dir.classes.check">
+		<condition property="dir.classes.exists">
+			<available file="${classes}" type="dir" />
+		</condition>
+	</target>
+
+	<target name="dir.classes.create" depends="dir.classes.check" unless="dir.classes.exists">
+		<echo>Création du répertoire ${classes}"</echo>
+		<mkdir dir="${classes}" />
+	</target>
+
+	<!-- ================================= = target: compilation ================================= -->
+	<target name="classes" depends="parser, lexer, dir.classes.create"
+		description="Compilation">
+		<javac includeantruntime="false" 
+			srcdir="${src}"
+			destdir="${classes}"
+			fork="yes"
+			debug="on">
+		</javac>
+	</target>
+
+	<!-- ================================= target: lexer ================================= -->
+	<uptodate property="lexer.isUpToDate" srcfile="${lexer.srcfile}"
+		targetfile="${lexer.targetfile}" />
+	
+	<target name="lexer" description="Exécution de JFlex" unless="lexer.isUpToDate">
+		<echo message="création par jflex du fichier ${lexer.targetfile}" />
+		<taskdef name="jflex" classname="jflex.anttask.JFlexTask">
+			<classpath location="${jflex.jar}" />
+		</taskdef>
+		<jflex file="${lexer.srcfile}" destdir="${src}" />
+	</target>
+
+	<!-- ================================= target: parser ================================= -->
+	<uptodate property="parser.isUpToDate" srcfile="${parser.srcfile}"
+		  targetfile="${parser.targetfile}" />
+	<target name="parser" description="Compilation du parseur"
+		unless="parser.isUpToDate">
+	  <echo message="création par bison du fichier ${parser.targetfile}" />
+	  <exec executable="${bison}">
+	    <arg value="--report" />
+	    <arg value="itemsets" />
+	    <arg value="-o" />
+	    <arg value="${parser.targetfile}" />
+	    <arg value="${parser.srcfile}" />
+	  </exec>
+	</target>
+
+</project>

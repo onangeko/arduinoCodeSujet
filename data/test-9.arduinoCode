@@ -1,0 +1,29 @@
+// Input
+
+// Brancher PIN_13 à une LED reliée à GND avec une résistance de 330ohms
+// Brancher PIN_8 à une LED reliée à GND avec une résistance de 330ohms
+// Brancher PIN_2 à un bouton poussoir relié à GND 
+
+// LED PIN_13 toujours allumée
+// LED PIN_8 allumée si bouton appuyé
+
+c, d : unsigned byte;
+
+begin
+c=1*6;
+pinMode(PIN_8, OUTPUT);
+pinMode(PIN_13, OUTPUT);
+pinMode(PIN_2, INPUTPULLUP);
+digitalWrite(PIN_13, HIGH);
+loop{
+	c = digitalRead(PIN_2);
+	if (c == 0)
+		digitalWrite(PIN_8, HIGH);
+	else
+		digitalWrite(PIN_8, LOW);
+	delay_ms(50);
+}
+end
+
+
+

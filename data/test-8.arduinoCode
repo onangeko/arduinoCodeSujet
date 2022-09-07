@@ -1,0 +1,18 @@
+// Teste foreach
+
+// Brancher PIN_13 à une LED reliée à GND avec une résistance de 330ohms
+// Brancher l'Arduino au connecteur USB de l'ordinateur en lancer une communication Série
+
+x: byte;
+
+begin
+pinMode(PIN_13, OUTPUT);
+// Boucle tant que l'on ne tape pas 'Q'
+foreach x in [65 .. 90] {
+	putc(x);
+	digitalWrite(PIN_13, HIGH);
+	delay_ms(1000);
+	digitalWrite(PIN_13, LOW);
+	delay_ms(1000);
+}
+end
